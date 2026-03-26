@@ -7,10 +7,13 @@ import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function Dashboard() {
   const { user } = useAuthStore();
+  console.log(user);
   const [subStatus, setSubStatus] = useState<any>(null);
   const [scores, setScores] = useState<any[]>([]);
   const [newScore, setNewScore] = useState<string>('');
   const [loading, setLoading] = useState(true);
+
+
 
   const fetchDashboardData = async () => {
     try {
