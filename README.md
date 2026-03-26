@@ -1,6 +1,7 @@
 # Golf Charity Subscription Platform
 
 This is a complete premium Full-Stack application featuring React (Vite+Tailwind), Node.js (Express), and Supabase (PostgreSQL).
+Live Demo: https://golf-charity-platform-olive.vercel.app
 
 ## Features Implemented
 - **JWT Authentication** (Login/Register, Passwords hashed via bcrypt)
