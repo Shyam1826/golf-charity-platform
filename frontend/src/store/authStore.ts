@@ -15,14 +15,27 @@ interface AuthState {
   logout: () => void;
 }
 
+// ✅ SAFE PARSE FUNCTION
+const getStoredUser = () => {
+  try {
+    const stored = localStorage.getItem('user');
+    if (!stored || stored === "undefined") return null;
+    return JSON.parse(stored);
+  } catch (err) {
+    return null;
+  }
+};
+
 export const useAuthStore = create<AuthState>((set) => ({
-  user: JSON.parse(localStorage.getItem('user') || 'null'),
+  user: getStoredUser(),
   token: localStorage.getItem('token'),
+
   setAuth: (user, token) => {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
     set({ user, token });
   },
+
   logout: () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
