@@ -73,3 +73,21 @@ export const getSubscriptionStatus = async (req: AuthRequest, res: Response) => 
     res.status(500).json({ message: error.message || 'Server error' });
   }
 };
+
+export const cancelSubscription = async (req: AuthRequest, res: Response) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+
+    const { error } = await supabase
+      .from('subscriptions')
+      .update({ status: 'inactive' })
+      .eq('user_id', userId)
+      .eq('status', 'active');
+
+    if (error) throw error;
+    res.json({ message: 'Subscription cancelled successfully' });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message || 'Server error' });
+  }
+};

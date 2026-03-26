@@ -40,6 +40,16 @@ export default function Dashboard() {
     }
   };
 
+  const handleCancelSubscription = async () => {
+    if (!confirm('Are you sure you want to cancel your subscription?')) return;
+    try {
+      await api.delete('/subscriptions/cancel');
+      fetchDashboardData();
+    } catch (err) {
+      alert('Failed to cancel subscription');
+    }
+  };
+
   const handleAddScore = async (e: React.FormEvent) => {
     e.preventDefault();
     const scoreVal = parseInt(newScore);
@@ -110,10 +120,16 @@ export default function Dashboard() {
                   <div className="bg-white p-2 rounded-full shadow-sm text-golf">
                     <CheckCircle2 size={32} />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <span className="block font-black text-2xl uppercase tracking-wider">{subStatus.subscription.plan_type} PLAN</span>
                     <span className="block font-semibold text-darkblue-light text-sm mt-1">Status: Active & Playing</span>
                   </div>
+                  <button 
+                    onClick={handleCancelSubscription}
+                    className="text-xs font-bold text-red-500 hover:text-white bg-red-100/50 hover:bg-red-500 px-4 py-2 rounded-lg transition-colors border border-red-200 hover:border-red-500"
+                  >
+                    Cancel Plan
+                  </button>
                 </div>
                 <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100 flex justify-between items-center">
                   <span className="font-semibold text-slate-500">Renewal Date</span>

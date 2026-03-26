@@ -39,7 +39,8 @@ export const registerUser = async (req: Request, res: Response) => {
         email,
         password_hash: hashedPassword,
         charity_id: charity_id || null,
-        charity_percentage: charity_percentage || 10.00
+        charity_percentage: charity_percentage || 10.00,
+        role: 'user'
       })
       .select('id, email, role, charity_id, charity_percentage')
       .single();
