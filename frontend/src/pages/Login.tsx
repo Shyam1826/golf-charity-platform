@@ -18,8 +18,8 @@ export default function Login() {
     setLoading(true);
     try {
       const { data } = await api.post('/auth/login', { email, password });
-      setAuth(data.user, data.token);
-      navigate(data.user.role === 'admin' ? '/admin' : '/dashboard');
+      setAuth(data, data.token);
+      navigate(data.role === 'admin' ? '/admin' : '/dashboard');
     } catch (err: any) {
       setError(err.response?.data?.message || 'Login failed');
     } finally {
